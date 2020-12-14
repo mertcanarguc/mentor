@@ -8,11 +8,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const engine = require("ejs-locals")
 
-mongoose.connect("mongodb://localhost:27017/mentor",(err,data)=>{
-  if (!err) {
-    console.log("Başarılı")
-  }
-})
+mongoose.connect("mongodb+srv://xox:Q1w2e3r4.@cluster0.uxiuf.mongodb.net/mentor?retryWrites=true&w=majority")
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
