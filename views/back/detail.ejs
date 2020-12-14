@@ -1,0 +1,135 @@
+<% layout("layout") %>
+
+<div class="row">
+    <div class="col-md-4 col-lg-3">
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="thumb-info mb-md">
+                    <img src="../../../back/images/!logged-user.jpg" class="rounded img-responsive" alt="John Doe">
+                    <div class="thumb-info-title">
+                        <span class="thumb-info-inner"><%= ogrenci.ad %> <%= ogrenci.soyad %>  </span>
+                        <span class="thumb-info-type"><%= ogrenci.seviye %> </span>
+                    </div>
+                </div>
+
+                <hr class="dotted short">
+
+                <h6 class="text-muted">Öğrenci Bilgileri</h6>
+
+                <ul class="list-group">
+                    <li class="list-group-item"><%= ogrenci.okul %> </li>
+                    <li class="list-group-item"><%= ogrenci.veli %> </li>
+                    <li class="list-group-item"><%= ogrenci.tel %> </li>
+                </ul>
+
+            </div>
+        </section>
+
+
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                    <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                </div>
+
+                <h2 class="panel-title">
+                    <span class="va-middle">Öğrenci Sınıfı</span>
+                </h2>
+            </header>
+            <div class="panel-body">
+                <div class="content">
+                    <ul class="simple-user-list">
+                        <li>
+                            <figure class="image rounded">
+                                <img src="../../../back/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle">
+                            </figure>
+                            <span class="title">Sınıf Arkadaşı</span>
+                            <span class="message truncate">Lorem ipsum dolor sit.</span>
+                        </li>
+                    </ul>
+                    <div class="text-right">
+                        <a class="text-uppercase text-muted" href="#">(Tümünü Gör)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                    <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                </div>
+
+                <h2 class="panel-title">Sınavlar ve Notlar</h2>
+            </header>
+            <div class="panel-body">
+                <ul class="simple-post-list">
+                    <li>
+                        <div class="post-image">
+                            <div class="img-thumbnail">
+                                <a href="#">
+                                    <img src="../../../back/images/post-thumb-1.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="post-info">
+                            <a href="#">İngilizce Bla bla Sınavı</a>
+                            <div class="post-meta">
+                                5 Ocak 2021
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+    <div class="col-md-8 col-lg-6">
+
+        <div class="tabs">
+            <ul class="nav nav-tabs tabs-primary">
+                <li class="active">
+                    <a href="#overview" data-toggle="tab">Genel</a>
+                </li>
+                <li>
+                    <a href="#edit" data-toggle="tab">Bilgiler</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="overview" class="tab-pane active">
+                    <h4 class="mb-md">Genel Bilgiler ve Duyurular</h4>
+
+
+                </div>
+                <div id="edit" class="tab-pane">
+
+                    <form class="form-horizontal" method="get">
+                        <h4 class="mb-xlg">Öğrenci Bilgileri ve Düzenleme</h4>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-3">
+        <ul class="simple-card-list mb-xlg">
+            <li class="primary">
+                <h3>79</h3>
+                <p>Ortalama Notu (100 üzerinden)</p>
+            </li>
+            <li class="primary">
+                <h3>12</h3>
+                <p>Sınıf sıralaması (30 kişi içinden)</p>
+            </li>
+            <li class="primary">
+                <h3>134</h3>
+                <p>Bu hafta çözdüğü soru sayısı</p>
+            </li>
+        </ul>
+    </div>
+</div>

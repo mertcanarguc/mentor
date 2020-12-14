@@ -1,0 +1,89 @@
+<% layout("layout") %>
+<section class="panel">
+    <header class="panel-heading">Öğrenci Ekle</header>
+    <div class="panel-body">
+        <form action="/admin/ogrenci" method="post">
+            <div class="col-md-3 form-group">
+                <label>Öğrencinin Adı</label>
+                <input type="text" class="form-control" placeholder="Öğrencinin adını giriniz." name="ad">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Öğrencinin Soyadı</label>
+                <input type="text" class="form-control" placeholder="Öğrencinin soyadını giriniz." name="soyad">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Öğrencinin Okulu</label>
+                <select data-plugin-selectTwo name="okul" class="form-control">
+                    <% okul.forEach(element => { %>
+                    <option><%= element.okul %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Öğrencinin Seviyesi</label>
+                <select data-plugin-selectTwo name="seviye" class="form-control">
+                    <% seviye.forEach(element => { %>
+                    <option><%= element.seviye %> </option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Okul No</label>
+                <input type="text" class="form-control" name="okulno" placeholder="Öğrencinin okul numarası">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Veli Adı Soyadı</label>
+                <input type="text" name="veli" class="form-control" placeholder="Veli bilgileri">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Telefon No : </label>
+                <input type="text" name="tel" class="form-control" placeholder="Telefon numarası">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Mail Adresi</label>
+                <input type="text" name="mail" class="form-control" placeholder="Mail adresi">
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-md btn-primary pull-right" type="submit">Ekle</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<section class="panel">
+    <header class="panel-heading">Öğrenciler</header>
+    <div class="panel-body table-responsive">
+        <table class="table" id="datatable-default">
+            <thead>
+                <tr>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Okul</th>
+                    <th>Seviye</th>
+                    <th>Okul No</th>
+                    <th>Veli</th>
+                    <th>Tel</th>
+                    <th>Mail</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% ogrenci.forEach(element => { %>
+                    <tr>
+                        <td> <b><a href="/admin/detail/<%= element._id %>"><%= element.ad %></a></b> </td>
+                        <td><%= element.soyad %> </td>
+                        <td><%= element.okul %> </td>
+                        <td><%= element.seviye %> </td>
+                        <td><%= element.okulno %> </td>
+                        <td><%= element.veli %> </td>
+                        <td><%= element.tel %> </td>
+                        <td><%= element.mail %> </td>
+                        <td><a class="btn btn-danger btn-xs pull-right" href="/admin/ogrenci/sil/<%= element._id %>">SİL</a></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        
+    </div>
+</section>
