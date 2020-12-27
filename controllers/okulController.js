@@ -1,10 +1,13 @@
 const async = require("async")
 const Okul = require("../models/okul")
+const Firma = require("../models/firma")
 
 exports.list = async(req,res,next)=>{
     let okul = await Okul.find({ })
+    let firma = await Firma.find({ })
     res.render("back/okul",{
         okul:okul,
+        firma:firma
     })
 }
 

@@ -20,16 +20,16 @@
                 </select>
             </div>
             <div class="form-group col-md-3">
+                <label>Firma</label>
+                <select name="firma" data-plugin-selectTwo class="form-control">
+                    <% firma.forEach(element => { %>
+                    <option><%= element.firma %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
                 <label>Okul Adı</label>
                 <input type="text" name="okul" class="form-control" placeholder="Okulun adını giriniz.">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Yetkili Adı Soyadı</label>
-                <input type="text" name="yetkili" class="form-control" placeholder="Yetkili adı ve soyadı">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Yetkili Telefonu</label>
-                <input type="text" name="tel" class="form-control" placeholder="Yetkili cep telefonu">
             </div>
             <div class="form-group col-md-9">
                 <label>Okulun adresi</label>
@@ -51,11 +51,10 @@
             <table class="table" id="datatable-default">
                 <thead>
                     <tr>
+                        <th>Okul</th>
                         <th>İl</th>
                         <th>İlçe</th>
-                        <th>Okul</th>
-                        <th>Yetkili</th>
-                        <th>İletişim</th>
+                        <th>Firma</th>
                         <th>Adres</th>
                         <th></th>
                     </tr>
@@ -63,12 +62,11 @@
                 <tbody>
                     <% okul.forEach(element => { %>
                     <tr>
-                        <td> <%= element.il %>  </td>
-                        <td> <%= element.ilce %>  </td>
-                        <td> <%= element.okul %>  </td>
-                        <td> <%= element.yetkili %>  </td>
-                        <td> <%= element.tel %>  </td>
-                        <td> <%= element.adres %>  </td>
+                        <td> <b><%= element.okul %> </b></td>
+                        <td> <%= element.il %> </td>
+                        <td> <%= element.ilce %> </td>
+                        <th> <%= element.firma %> </th>
+                        <td> <%= element.adres %> </td>
                         <td> <a class="btn btn-danger btn-xs pull-right" href="/admin/okul/sil/<%= element._id %>">SİL</a> </td>
                     </tr>
                     <% }) %>

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const okulSchema = new Schema({
     okul:String,
+    firma:String,
     il:String,
     ilce:String,
     adres:String,
