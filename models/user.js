@@ -6,6 +6,7 @@ const User = new Schema({
     password:String,
     adsoyad:String,
     mail:String,
+    seviye:String,
     tip:Number, // 0 Admin 1 Firma 2 Okul 3 Öğretmen / Sınıf 4 Öğrenci  
     ust:{
         type:Object,
@@ -19,8 +20,9 @@ const User = new Schema({
         type:Date,
         default:Date.now
     },
-    firma:String, //EKLENEN FİRMAYSA ADI BURAYA
-    okul:String //EKLENEN OKULSA ADI BURAYA,
+    firma:String, //EKLENEN FİRMAYSA ADI BURAYA,
+    okul:String, //EKLENEN OKULSA ADI BURAYA,
+    sinif:String, //EKLENEN SINIF İSE BURAYA
 });
 
 User.plugin(passportLocalMongoose);

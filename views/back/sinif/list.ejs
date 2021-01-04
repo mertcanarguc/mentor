@@ -1,0 +1,111 @@
+<% layout("../layout") %>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.7/chance.min.js"
+    integrity="sha512-dELYIOEzIECWdvsEdoywFOB4qKDmtQee33yD0dQnzAE7eBGKJ984VQXRLs/vlsP4Sb3VchbQL7iAy4NWqetCsw=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+    crossorigin="anonymous"></script>
+<section class="panel" id="app">
+    <header class="panel-heading">
+        Sınıf Ekle
+    </header>
+    <div class="panel-body">
+            <div class="form-group col-md-3">
+                <label>Okul</label>
+                <select name="ust" v-model="ust" class="form-control">
+                    <% okul.forEach(element => { %>
+                    <option value="<%= element._id %>"><%= element.okul.toUpperCase() %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Seviye</label>
+                <select name="seviye" v-model="seviye" class="form-control">
+                    <% seviye.forEach(element => { %>
+                    <option value="<%= element._id %>"><%= element.seviye %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Sınıf Adı</label>
+                <input type="text" v-model="sinif" class="form-control" placeholder="Sınıfın adını giriniz.">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Eğitmen Adı</label>
+                <input type="text" v-model="adsoyad" class="form-control" placeholder="Öğretmen adı">
+            </div>
+            <div class="col-md-12">
+                <button @click="sinifekle()" class="btn btn-primary btn-md pull-right">Ekle</button>
+            </div>
+    </div>
+</section>
+
+<section class="panel">
+    <header class="panel-heading">
+        Sınıflar
+    </header>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table" id="datatable-default">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th>Okul</th>
+                        <th>Eğitmen</th>
+                        <th>EYLEM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% sinif.forEach(element => { %>
+                    <tr>
+                        <td><b><a href="#"><%= element.sinif.toUpperCase() %> </a></b> <br>
+                        <b><%= element.username %> - <%= element.password %> </b>
+                        </td>
+                        <th> <a href=""><%= element.ust.okul.toUpperCase() %></a> </th>
+                        <td> <%= element.adsoyad %> </td>
+                        <td> <a class="btn btn-danger btn-xs pull-right" href="/admin/sinif/sil/<%= element._id %>">SİL</a> </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            ust:null,
+            sinif:"",
+            seviye:"",
+            adsoyad:""
+        },
+        methods:{
+            sinifekle(){
+                axios.post("/users/register/sinif",{
+                    tip:3,
+                    ust:this.ust,
+                    sinif:this.sinif,
+                    seviye:this.seviye,
+                    adsoyad:this.adsoyad,
+                    username: chance.string({ pool: 'sinif1234567890', length: 5 }),
+                    password: chance.string({ pool: '1234567890', length: 6 })
+                }).then(response=>{
+                    if (response.data.status == true) {
+                        swal("Sınıf Ekleme", "Başarılı", "success")
+                        setTimeout(() => {
+                            window.location = "/admin/sinif"
+                        }, 2000);
+                    } else {
+                        
+                    }
+                })
+            }
+        }
+    })
+</script>

@@ -51,6 +51,29 @@ router.post('/register/okul', async function (req, res) {
     });
 });
 
+router.post('/register/sinif', async function (req, res) {
+  let ust = await User.findById({"_id":req.body.ust})
+  User.register(new User({
+    tip:req.body.tip,
+    username:req.body.username,
+    password:req.body.password,
+    sinif:req.body.sinif,
+    adsoyad:req.body.adsoyad,
+    seviye:req.body.seviye,
+    ust:ust
+  }),
+    req.body.password, function (err, user) {
+      if (err) {
+        return res.render('register', { user: user });
+      } else {
+        res.json({
+          status: true,
+          message: "User girişi başarılı"
+        })
+      }
+    });
+});
+
 
 router.get('/login', function (req, res) {
   res.render('login', { user: req.user });
