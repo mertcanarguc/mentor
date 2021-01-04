@@ -10,7 +10,7 @@ exports.list = async (req, res, next) => {
 
 exports.insert = async (req, res, next) => {
     new Brans({
-        brans: req.body.brans
+        brans: req.body.brans,
     }).save((err, data) => {
         if (err) {
             console.log(err)

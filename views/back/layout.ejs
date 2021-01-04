@@ -60,7 +60,7 @@
 		<!-- start: header -->
 		<header class="header">
 			<div class="logo-container">
-				<a href="../" class="logo">
+				<a href="/admin" class="logo">
 					<img src="../../back/logo.png" style="margin-top: -10px" height="55" alt="Porto Admin" />
 					<!-- <h3>MENTÖR İNGİLİZCE (LOGO ALANI)</h3> -->
 				</a>
@@ -148,9 +148,9 @@
 									</a>
 								</li>
 								<li>
-									<a>
-										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										<span>Şubeler</span>
+									<a href="/admin/sinif">
+										<i class="fa fa-book" aria-hidden="true"></i>
+										<span>Sınıflar</span>
 									</a>
 								</li>
 								<li>
@@ -166,11 +166,19 @@
 										<span>Sınavlar</span>
 									</a>
 								</li>
-								<li>
+								<li class="nav-parent">
 									<a>
 										<i class="fa fa-table" aria-hidden="true"></i>
 										<span>Sorular</span>
 									</a>
+									<ul class="nav nav-children">
+										<li>
+											<a href="/admin/sorular">Sorular</a>
+										</li>
+										<li>
+											<a href="/admin/soru">Soru Ekle</a>
+										</li>
+									</ul>
 								</li>
 								<li class="nav-parent">
 									<a>
@@ -183,6 +191,9 @@
 										</li>
 										<li>
 											<a href="/admin/seviye">Seviyeler</a>
+										</li>
+										<li>
+											<a href="/admin/konu">Konular</a>
 										</li>
 									</ul>
 								</li>
@@ -198,12 +209,8 @@
 			<section role="main" class="content-body">
 				<header class="page-header">
 					<h2>Mentör İngilizce</h2>
-
 				</header>
-
-				<!-- start: page -->
 				<%- body %>
-				<!-- end: page -->
 			</section>
 		</div>
 

@@ -1,13 +1,13 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const konuSchema = new Schema({
-    s:String,
-    konu:String,
+const sikSchema = new Schema({
+    text:String,
+    resim:String,
     createdAt:{
         type:Date,
         default:Date.now
     }
 })
 
-module.exports = mongoose.model("Konu",konuSchema)
+module.exports = mongoose.model("Sik",sikSchema)

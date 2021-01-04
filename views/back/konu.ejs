@@ -1,0 +1,31 @@
+<% layout("layout") %>
+
+<section class="panel col-md-6">
+    <header class="panel-heading">Konular</header>
+    <div class="panel-body">
+        <form action="/admin/konu/insert" method="POST">
+            <div class="form-group">
+                <label>Seviye</label>
+                <select name="s" class="form-control">
+                    <% seviye.forEach(element => { %>
+                    <option><%= element.seviye %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Konu</label>
+                <input type="text" name="konu" placeholder="Konu giriniz" required class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" formaction="/admin/konu/insert"
+                    class="btn btn-md btn-primary pull-right">Ekle</button>
+            </div>
+        </form>
+        <br>
+        <ul class="list-group">
+            <% konu.forEach(element => { %>
+            <li class="list-group-item"><%= element.konu %> - <b><%= element.s %></b></li>
+            <% }) %>
+        </ul>
+    </div>
+</section>

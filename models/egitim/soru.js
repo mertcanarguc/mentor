@@ -2,11 +2,16 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const soruSchema = new Schema({
+    title:String,
     soru:String,
+    resim:String,
     seviye:String,
     konu:String,  // Konu seviyeye göre eklenecek
-    secenek:Array, // A B C D E   Doğru Yanlış
     dogru:String,
+    sik:{
+        type:Array,
+        default:[]
+    },
     createdAt:{
         type:Date,
         default:Date.now
