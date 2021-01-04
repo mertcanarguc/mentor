@@ -5,6 +5,7 @@ const User = new Schema({
     username:String,
     password:String,
     adsoyad:String,
+    okulno:String,
     mail:String,
     seviye:String,
     tip:Number, // 0 Admin 1 Firma 2 Okul 3 Öğretmen / Sınıf 4 Öğrenci  

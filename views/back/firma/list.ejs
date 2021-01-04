@@ -78,7 +78,7 @@
                     <% firma.forEach(element => { %>
                     <tr>
                         <td>
-                            <%= element.firma %> <br>
+                            <%= element.firma.toUpperCase() %> <br>
                             <b><%= element.username %> - <%= element.password %> </b>
                         </td>
                         <td> <%= element.il %> </td>

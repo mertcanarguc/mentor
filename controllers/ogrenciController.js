@@ -1,31 +1,23 @@
 const async = require("async")
-const Ogrenci = require("../models/auth/ogrenci")
-const Okul = require("../models/auth/okul")
+const User = require("../models/user")
 const Seviye = require("../models/sistem/seviye")
 
 exports.list = async(req,res,next)=>{
-    let ogrenci = await Ogrenci.find({})
-    let okul = await Okul.find({})
+    let ogrenci = await User.find({"tip":4})
+    let okul = await User.find({"tip":2})
+    let sinif = await User.find({"tip":3})
     let seviye = await Seviye.find({})
-    res.render("back/ogrenci",{
+    res.render("back/ogrenci/list",{
         ogrenci:ogrenci,
         okul:okul,
+        sinif:sinif,
         seviye:seviye
     })
 }
 
-exports.insert = async(req,res,next)=>{
-    new Ogrenci(req.body).save((err,data)=>{
-        if (err) {
-            console.log(err)
-        }else{
-            res.redirect("/admin/ogrenci")
-        }
-    })
-}
 
 exports.detail = async(req,res,next)=>{
-    let ogrenci = await Ogrenci.findById({"_id":req.params.id})
+    let ogrenci = await User.findById({"_id":req.params.id})
 
     res.render("back/detail",{
         ogrenci:ogrenci
@@ -33,7 +25,7 @@ exports.detail = async(req,res,next)=>{
 }
 
 exports.delete = async(req,res,next)=>{
-    let ogrenci = await Ogrenci.findById({"_id":req.params.id})
+    let ogrenci = await User.findById({"_id":req.params.id})
 
     ogrenci.remove((err,data)=>{
         if (err) {

@@ -1,0 +1,124 @@
+<% layout("../layout") %>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.7/chance.min.js"
+    integrity="sha512-dELYIOEzIECWdvsEdoywFOB4qKDmtQee33yD0dQnzAE7eBGKJ984VQXRLs/vlsP4Sb3VchbQL7iAy4NWqetCsw=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+    crossorigin="anonymous"></script>
+<section class="panel" id="app">
+    <header class="panel-heading">Öğrenci Ekle</header>
+    <div class="panel-body">
+        <div class="col-md-3 form-group">
+            <label>Öğrencinin Ad Soyad</label>
+            <input type="text" v-model="adsoyad" class="form-control" placeholder="Öğrencinin adını giriniz." name="adsoyad">
+        </div>
+        <div class="col-md-3 form-group">
+            <label>Öğrencinin Okulu</label>
+            <select name="okul" v-model="okul" class="form-control">
+                <% okul.forEach(element => { %>
+                <option><%= element.okul %></option>
+                <% }) %>
+            </select>
+            {{okul}}
+        </div>
+        <div class="col-md-3 form-group">
+            <label>Öğrencinin Sınıfı</label>
+            <select name="sinif" v-model="sinif" class="form-control">
+                <% sinif.forEach(element => { %>
+                <option v-if="okul == '<%= element.ust.okul %>'"><%= element.sinif %> - <%= element.adsoyad %> </option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Okul No</label>
+            <input type="text" class="form-control" v-model="okulno" name="okulno" placeholder="Öğrencinin okul numarası">
+        </div>
+        <!-- <div class="col-md-3 form-group">
+                <label>Veli Adı Soyadı</label>
+                <input type="text" name="veli" class="form-control" placeholder="Veli bilgileri">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Telefon No : </label>
+                <input type="text" name="tel" class="form-control" placeholder="Telefon numarası">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Mail Adresi</label>
+                <input type="text" name="mail" class="form-control" placeholder="Mail adresi">
+            </div> -->
+        <div class="col-md-12">
+            <button @click="ogrenciekle()" class="btn btn-md btn-primary pull-right">Ekle</button>
+        </div>
+    </div>
+</section>
+
+
+<section class="panel">
+    <header class="panel-heading">Öğrenciler</header>
+    <div class="panel-body table-responsive">
+        <table class="table" id="datatable-default">
+            <thead>
+                <tr>
+                    <th>Ad Soyad - Okul No</th>
+                    <th>Okul</th>
+                    <th>Sınıf</th>
+                    <th>Veli</th>
+                    <th>Tel</th>
+                    <th>Mail</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% ogrenci.forEach(element => { %>
+                <tr>
+                    <td> <b><a href="/admin/detail/<%= element._id %>"><%= element.adsoyad.toUpperCase() %> - <%= element.okulno.toUpperCase() %> </a></b> </td>
+                    <td><%= element.okul %> </td>
+                    <td><%= element.sinif %> </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a class="btn btn-danger btn-xs pull-right" href="/admin/ogrenci/sil/<%= element._id %>">SİL</a>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            okul: "",
+            sinif: "",
+            adsoyad: "",
+            okulno: ""
+        },
+        methods: {
+            ogrenciekle() {
+                axios.post("/users/register/ogrenci", {
+                    tip:4,
+                    adsoyad: this.adsoyad,
+                    sinif: this.sinif,
+                    adsoyad: this.adsoyad,
+                    okulno: this.okulno,
+                    okul: this.okul,
+                    username: chance.string({ pool: 'sinif1234567890', length: 5 }),
+                    password: chance.string({ pool: '1234567890', length: 4 })
+                }).then(response=>{
+                    if (response.data.status == true) {
+                        swal("Öğrenci Ekleme", "Başarılı", "success")
+                        setTimeout(() => {
+                            window.location = "/admin/ogrenci"
+                        }, 2000);
+                    }
+                })
+            }
+        }
+    })
+</script>

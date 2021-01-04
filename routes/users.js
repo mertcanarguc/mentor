@@ -74,6 +74,19 @@ router.post('/register/sinif', async function (req, res) {
     });
 });
 
+router.post('/register/ogrenci', async function (req, res) {
+  User.register(new User(req.body),
+    req.body.password, function (err, user) {
+      if (err) {
+        return res.render('register', { user: user });
+      } else {
+        res.json({
+          status: true,
+          message: "User girişi başarılı"
+        })
+      }
+    });
+});
 
 router.get('/login', function (req, res) {
   res.render('login', { user: req.user });

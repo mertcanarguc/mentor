@@ -6,6 +6,7 @@ const mainController = require("../controllers/mainController")
 const firmaController = require("../controllers/firmaController")
 const okulController = require("../controllers/okulController")
 const sinifController = require("../controllers/sinifController")
+const ogrenciController = require("../controllers/ogrenciController")
 
 /* GET home page. */
 router.get('/admin',mainController.index);
@@ -26,5 +27,7 @@ router.get("/admin/okul/sil/:id",okulController.delete)
 
 router.get("/admin/sinif",sinifController.list)
 router.get("/admin/sinif/sil/:id",sinifController.delete)
+
+router.get("/admin/ogrenci",ogrenciController.list)
 
 module.exports = router;
