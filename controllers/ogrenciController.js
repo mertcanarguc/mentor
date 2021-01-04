@@ -1,7 +1,7 @@
 const async = require("async")
-const Ogrenci = require("../models/ogrenci")
-const Okul = require("../models/okul")
-const Seviye = require("../models/seviye")
+const Ogrenci = require("../models/auth/ogrenci")
+const Okul = require("../models/auth/okul")
+const Seviye = require("../models/sistem/seviye")
 
 exports.list = async(req,res,next)=>{
     let ogrenci = await Ogrenci.find({})

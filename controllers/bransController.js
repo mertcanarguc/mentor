@@ -1,5 +1,5 @@
 const async = require("async")
-const Brans = require("../models/brans")
+const Brans = require("../models/sistem/brans")
 
 exports.list = async (req, res, next) => {
     let brans = await Brans.find({})

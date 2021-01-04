@@ -1,14 +1,23 @@
-<% layout("layout") %>
+<% layout("../layout") %>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.7/chance.min.js"
+    integrity="sha512-dELYIOEzIECWdvsEdoywFOB4qKDmtQee33yD0dQnzAE7eBGKJ984VQXRLs/vlsP4Sb3VchbQL7iAy4NWqetCsw=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+    crossorigin="anonymous"></script>
 <section class="panel" id="app">
     <header class="panel-heading">
-        Firma Ekle
+        Okul Ekle
     </header>
     <div class="panel-body">
-        <form action="/admin/firma/insert" method="post">
             <div class="form-group col-md-3">
                 <label>İl</label>
                 <select v-model="selected" class="form-control" name="il">
+                    <option value="*" selected></option>
                     <option v-for="item in sehir" :value="item.il">{{item.il}}</option>
                 </select>
             </div>
@@ -16,60 +25,58 @@
                 <label>İlçe:</label>
                 <select class="form-control" name="ilce" v-model="ilcee" v-for="item in sehir"
                     v-if="item.il == selected">
+                    <option value="*" selected></option>
                     <option v-for="ilce in item.ilceleri" :value="ilce">{{ilce}}</option>
                 </select>
             </div>
             <div class="form-group col-md-3">
-                <label>Firma Adı</label>
-                <input type="text" name="firma" class="form-control" placeholder="Firmanın adını giriniz.">
+                <label>Firma</label>
+                <select name="ust" v-model="ust" class="form-control">
+                    <% firma.forEach(element => { %>
+                    <option value="<%= element._id %>"><%= element.firma %></option>
+                    <% }) %>
+                </select>
             </div>
             <div class="form-group col-md-3">
-                <label>Yetkili Adı Soyadı</label>
-                <input type="text" name="yetkili" class="form-control" placeholder="Yetkili adı ve soyadı">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Yetkili Telefonu</label>
-                <input type="text" name="tel" class="form-control" placeholder="Yetkili cep telefonu">
+                <label>Okul Adı</label>
+                <input type="text" v-model="okul" name="okul" class="form-control" placeholder="Okulun adını giriniz.">
             </div>
             <div class="form-group col-md-9">
                 <label>Okulun adresi</label>
-                <input type="text" name="adres" class="form-control" placeholder="Firmanın adresini giriniz.">
+                <input type="text" v-model="adres" name="adres" class="form-control" placeholder="Okulun adresini giriniz.">
             </div>
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary btn-md pull-right">Ekle</button>
+                <button @click="okulekle()" class="btn btn-primary btn-md pull-right">Ekle</button>
             </div>
-        </form>
     </div>
 </section>
 
 <section class="panel">
     <header class="panel-heading">
-        Firmalar
+        Okullar
     </header>
     <div class="panel-body">
         <div class="table-responsive">
             <table class="table" id="datatable-default">
                 <thead>
                     <tr>
+                        <th>Okul</th>
                         <th>İl</th>
                         <th>İlçe</th>
                         <th>Firma</th>
-                        <th>Yetkili</th>
-                        <th>İletişim</th>
                         <th>Adres</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% firma.forEach(element => { %>
+                    <% okul.forEach(element => { %>
                     <tr>
-                        <td> <%= element.il %>  </td>
-                        <td> <%= element.ilce %>  </td>
-                        <td> <%= element.firma %>  </td>
-                        <td> <%= element.yetkili %>  </td>
-                        <td> <%= element.tel %>  </td>
-                        <td> <%= element.adres %>  </td>
-                        <td> <a class="btn btn-danger btn-xs pull-right" href="/admin/firma/sil/<%= element._id %>">SİL</a> </td>
+                        <td style="text-transform: uppercase;"><b><a href="#"><%= element.okul %> </a></b></td>
+                        <td> <%= element.il %> </td>
+                        <td> <%= element.ilce %> </td>
+                        <th style="text-transform: uppercase;"> <a href=""><%= element.ust.firma %></a> </th>
+                        <td> <%= element.adres %> </td>
+                        <td> <a class="btn btn-danger btn-xs pull-right" href="/admin/okul/sil/<%= element._id %>">SİL</a> </td>
                     </tr>
                     <% }) %>
                 </tbody>
@@ -82,6 +89,8 @@
     new Vue({
         el: "#app",
         data: {
+            okul:"",
+            ust:"",
             selected: "*",
             ilce: "",
             ilcee: "",
@@ -1547,6 +1556,28 @@
                         "Kaynaşlı"
                     ]
                 }],
+        },
+        methods:{
+            okulekle(){
+                axios.post("/users/register/okul",{
+                    tip:2,
+                    okul:this.okul,
+                    ust:this.ust,
+                    il:this.selected,
+                    ilce:this.ilcee,
+                    username: chance.string({ pool: 'okul1234567890', length: 5 }),
+                    password: chance.string({ pool: '1234567890', length: 6 })
+                }).then(response=>{
+                    if (response.data.status == true) {
+                        swal("Okul Ekleme", "Başarılı", "success")
+                        setTimeout(() => {
+                            window.location = "/admin/okul"
+                        }, 2000);
+                    } else {
+                        
+                    }
+                })
+            }
         }
     })
 </script>

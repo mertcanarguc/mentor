@@ -1,5 +1,5 @@
 const async = require("async")
-const Seviye = require("../models/seviye")
+const Seviye = require("../models/sistem/seviye")
 
 exports.list = async (req, res, next) => {
     let seviye = await Seviye.find({})
