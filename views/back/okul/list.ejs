@@ -71,7 +71,10 @@
                 <tbody>
                     <% okul.forEach(element => { %>
                     <tr>
-                        <td style="text-transform: uppercase;"><b><a href="#"><%= element.okul %> </a></b></td>
+                        <td style="text-transform: uppercase;"><b><a href="#"><%= element.okul %> </a>
+                        <br>
+                        <b><%= element.username %> - <%= element.password %> </b>
+                        </b></td>
                         <td> <%= element.il %> </td>
                         <td> <%= element.ilce %> </td>
                         <th style="text-transform: uppercase;"> <a href=""><%= element.ust.firma %></a> </th>
